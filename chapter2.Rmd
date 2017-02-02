@@ -6,11 +6,11 @@
 - Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods
 - Assume the reader has no previous knowledge of your data or the more advanced methods you are using  
 
-lrn14=read.table("data/learning2014.txt", sep = ",", header = TRUE)
+learning2014=read.table("data/learning2014.txt", sep = ",", header = TRUE)
 
-str(lrn14)
+str(learning2014)
 
-dim(lrn14)
+dim(learning2014)
 
 #Aineistossa on 166 havaintoyksikköä ja seitsemän muuttujaa. 
 #Muuttujat Age, Attitude, Points ovat numeerisia 
@@ -21,5 +21,34 @@ dim(lrn14)
 #syvällisiin, strategisiin ja pinnallisiin kysymyksiin.
 #gender on luokiteltu muuttuja ja sen arvo 1 kuvaa naista
 #ja arvo 2 miestä.
+
+library(ggplot2)
+
+library(GGally)
+
+pairs(learning2014[-1], col = learning2014$gender)
+
+p=ggpairs(learning2014, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
+
+p
+
+#Kuvasta nähdään että muuttujat Attitude, deep ja stra ovat
+#jakautuneet lähes normaalisti naisten ja miesten joukossa. 
+#Myös surf on naisten osalta jakautunut lähes normaalisti.
+#Age on vinoutunut, skewed, oikealle ja myös surf on 
+#vinoutunut oikealle miesten osalta. Points-muuttujan jakauma
+#on vinoutunut vasemmalle. Korrelaatiokertoimista nähdään
+#että muuttujat Attitude ja Age, deep ja
+#Age, deep ja Attitude, stra ja Attitude, Points ja Attitude,
+#stra ja deep, Points ja deep korreloivat suhteellisen paljon
+#naisten joukossa. Muuttujat Attitude ja Age, deep ja Age,
+#stra ja Age, surf ja Attitude, Points ja Attitude, surf ja deep,
+#Points ja deep korreloivat suhteellisen paljon miesten
+#joukossa. Suuren korrelaatiokertoimen tulkinta on esimerkiksi
+#muuttujien Attitude ja Age kohdalla se että asenteen
+#tilastotiedettä kohtaan ja iän välillä on riippuvuutta. Jos
+#korrelaatiokerroin olisi yksi, toisen muuttujan arvon voisi laskea tarkasti, lineaarisesti toisen arvosta.
+
+
 
 

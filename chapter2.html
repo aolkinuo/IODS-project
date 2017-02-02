@@ -127,9 +127,9 @@ $(document).ready(function () {
 <li>Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods</li>
 <li>Assume the reader has no previous knowledge of your data or the more advanced methods you are using</li>
 </ul>
-<p>lrn14=read.table(“data/learning2014.txt”, sep = “,”, header = TRUE)</p>
-<p>str(lrn14)</p>
-<p>dim(lrn14)</p>
+<p>learning2014=read.table(“data/learning2014.txt”, sep = “,”, header = TRUE)</p>
+<p>str(learning2014)</p>
+<p>dim(learning2014)</p>
 </div>
 <div id="aineistossa-on-166-havaintoyksikkoa-ja-seitseman-muuttujaa." class="section level1">
 <h1>Aineistossa on 166 havaintoyksikköä ja seitsemän muuttujaa.</h1>
@@ -157,6 +157,59 @@ $(document).ready(function () {
 </div>
 <div id="ja-arvo-2-miesta." class="section level1">
 <h1>ja arvo 2 miestä.</h1>
+<p>library(ggplot2)</p>
+<p>library(GGally)</p>
+<p>pairs(learning2014[-1], col = learning2014$gender)</p>
+<p>p=ggpairs(learning2014, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap(“facethist”, bins = 20)))</p>
+<p>p</p>
+</div>
+<div id="kuvasta-nahdaan-etta-muuttujat-attitude-deep-ja-stra-ovat" class="section level1">
+<h1>Kuvasta nähdään että muuttujat Attitude, deep ja stra ovat</h1>
+</div>
+<div id="jakautuneet-lahes-normaalisti-naisten-ja-miesten-joukossa." class="section level1">
+<h1>jakautuneet lähes normaalisti naisten ja miesten joukossa.</h1>
+</div>
+<div id="myos-surf-on-naisten-osalta-jakautunut-lahes-normaalisti." class="section level1">
+<h1>Myös surf on naisten osalta jakautunut lähes normaalisti.</h1>
+</div>
+<div id="age-on-vinoutunut-skewed-oikealle-ja-myos-surf-on" class="section level1">
+<h1>Age on vinoutunut, skewed, oikealle ja myös surf on</h1>
+</div>
+<div id="vinoutunut-oikealle-miesten-osalta.-points-muuttujan-jakauma" class="section level1">
+<h1>vinoutunut oikealle miesten osalta. Points-muuttujan jakauma</h1>
+</div>
+<div id="on-vinoutunut-vasemmalle.-korrelaatiokertoimista-nahdaan" class="section level1">
+<h1>on vinoutunut vasemmalle. Korrelaatiokertoimista nähdään</h1>
+</div>
+<div id="etta-muuttujat-attitude-ja-age-deep-ja" class="section level1">
+<h1>että muuttujat Attitude ja Age, deep ja</h1>
+</div>
+<div id="age-deep-ja-attitude-stra-ja-attitude-points-ja-attitude" class="section level1">
+<h1>Age, deep ja Attitude, stra ja Attitude, Points ja Attitude,</h1>
+</div>
+<div id="stra-ja-deep-points-ja-deep-korreloivat-suhteellisen-paljon" class="section level1">
+<h1>stra ja deep, Points ja deep korreloivat suhteellisen paljon</h1>
+</div>
+<div id="naisten-joukossa.-muuttujat-attitude-ja-age-deep-ja-age" class="section level1">
+<h1>naisten joukossa. Muuttujat Attitude ja Age, deep ja Age,</h1>
+</div>
+<div id="stra-ja-age-surf-ja-attitude-points-ja-attitude-surf-ja-deep" class="section level1">
+<h1>stra ja Age, surf ja Attitude, Points ja Attitude, surf ja deep,</h1>
+</div>
+<div id="points-ja-deep-korreloivat-suhteellisen-paljon-miesten" class="section level1">
+<h1>Points ja deep korreloivat suhteellisen paljon miesten</h1>
+</div>
+<div id="joukossa.-suuren-korrelaatiokertoimen-tulkinta-on-esimerkiksi" class="section level1">
+<h1>joukossa. Suuren korrelaatiokertoimen tulkinta on esimerkiksi</h1>
+</div>
+<div id="muuttujien-attitude-ja-age-kohdalla-se-etta-asenteen" class="section level1">
+<h1>muuttujien Attitude ja Age kohdalla se että asenteen</h1>
+</div>
+<div id="tilastotiedetta-kohtaan-ja-ian-valilla-on-riippuvuutta.-jos" class="section level1">
+<h1>tilastotiedettä kohtaan ja iän välillä on riippuvuutta. Jos</h1>
+</div>
+<div id="korrelaatiokerroin-olisi-yksi-toisen-muuttujan-arvon-voisi-laskea-tarkasti-lineaarisesti-toisen-arvosta." class="section level1">
+<h1>korrelaatiokerroin olisi yksi, toisen muuttujan arvon voisi laskea tarkasti, lineaarisesti toisen arvosta.</h1>
 </div>
 
 
