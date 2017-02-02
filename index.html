@@ -141,7 +141,16 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#about-the-project">About the project</a></li>
-<li><a href="#insert-chapter-2-title-here">Insert chapter 2 title here</a></li>
+<li><a href="#regression-and-model-validation">Regression and model validation</a></li>
+<li><a href="#aineistossa-on-166-havaintoyksikkoa-ja-seitseman-muuttujaa.">Aineistossa on 166 havaintoyksikköä ja seitsemän muuttujaa.</a></li>
+<li><a href="#muuttujat-age-attitude-points-ovat-numeerisia">Muuttujat Age, Attitude, Points ovat numeerisia</a></li>
+<li><a href="#kokonaislukumuuttujia-ja-ne-kertovat-henkilon-ian-asenteen">kokonaislukumuuttujia ja ne kertovat henkilön iän, asenteen</a></li>
+<li><a href="#tilastotiedetta-kohtaan-ja-koepisteet.-ika-on-laskettu">tilastotiedettä kohtaan ja koepisteet. Ikä on laskettu</a></li>
+<li><a href="#syntymavuoden-avulla.-muuttujat-deep-stra-ja-surf-ovat">syntymävuoden avulla. Muuttujat deep, stra ja surf ovat</a></li>
+<li><a href="#numeerisia-muuttujia.-ne-kertovat-henkilon-vastaukset">numeerisia muuttujia. Ne kertovat henkilön vastaukset</a></li>
+<li><a href="#syvallisiin-strategisiin-ja-pinnallisiin-kysymyksiin.">syvällisiin, strategisiin ja pinnallisiin kysymyksiin.</a></li>
+<li><a href="#gender-on-luokiteltu-muuttuja-ja-sen-arvo-1-kuvaa-naista">gender on luokiteltu muuttuja ja sen arvo 1 kuvaa naista</a></li>
+<li><a href="#ja-arvo-2-miesta.">ja arvo 2 miestä.</a></li>
 </ul>
 </div>
 
@@ -152,14 +161,44 @@ $(document).ready(function () {
 <p><a href="https://github.com/aolkinuo/IODS-project" class="uri">https://github.com/aolkinuo/IODS-project</a></p>
 <hr />
 </div>
-<div id="insert-chapter-2-title-here" class="section level1">
-<h1>Insert chapter 2 title here</h1>
+<div id="regression-and-model-validation" class="section level1">
+<h1>Regression and model validation</h1>
 <p><em>Describe the work you have done this week and summarize your learning.</em></p>
 <ul>
 <li>Describe your work and results clearly.</li>
 <li>Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods</li>
 <li>Assume the reader has no previous knowledge of your data or the more advanced methods you are using</li>
 </ul>
+<p>lrn14=read.table(“data/learning2014.txt”, sep = “,”, header = TRUE)</p>
+<p>str(lrn14)</p>
+<p>dim(lrn14)</p>
+</div>
+<div id="aineistossa-on-166-havaintoyksikkoa-ja-seitseman-muuttujaa." class="section level1">
+<h1>Aineistossa on 166 havaintoyksikköä ja seitsemän muuttujaa.</h1>
+</div>
+<div id="muuttujat-age-attitude-points-ovat-numeerisia" class="section level1">
+<h1>Muuttujat Age, Attitude, Points ovat numeerisia</h1>
+</div>
+<div id="kokonaislukumuuttujia-ja-ne-kertovat-henkilon-ian-asenteen" class="section level1">
+<h1>kokonaislukumuuttujia ja ne kertovat henkilön iän, asenteen</h1>
+</div>
+<div id="tilastotiedetta-kohtaan-ja-koepisteet.-ika-on-laskettu" class="section level1">
+<h1>tilastotiedettä kohtaan ja koepisteet. Ikä on laskettu</h1>
+</div>
+<div id="syntymavuoden-avulla.-muuttujat-deep-stra-ja-surf-ovat" class="section level1">
+<h1>syntymävuoden avulla. Muuttujat deep, stra ja surf ovat</h1>
+</div>
+<div id="numeerisia-muuttujia.-ne-kertovat-henkilon-vastaukset" class="section level1">
+<h1>numeerisia muuttujia. Ne kertovat henkilön vastaukset</h1>
+</div>
+<div id="syvallisiin-strategisiin-ja-pinnallisiin-kysymyksiin." class="section level1">
+<h1>syvällisiin, strategisiin ja pinnallisiin kysymyksiin.</h1>
+</div>
+<div id="gender-on-luokiteltu-muuttuja-ja-sen-arvo-1-kuvaa-naista" class="section level1">
+<h1>gender on luokiteltu muuttuja ja sen arvo 1 kuvaa naista</h1>
+</div>
+<div id="ja-arvo-2-miesta." class="section level1">
+<h1>ja arvo 2 miestä.</h1>
 <hr />
 </div>
 
