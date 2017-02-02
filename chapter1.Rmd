@@ -1,6 +1,6 @@
 
 # About the project
 
-*Write a short description about the course and add a link to your github repository here. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the 'Useful links' page in the mooc area (chapter 1) for instructions.*
+*T‰ll‰ kurssilla k‰ytet‰‰n ohjelmistoja Rstudio, Github ja Github desktop. Rstudiota k‰ytet‰‰n tilastolliseen analyysiin ja Githubia tiedostojen s‰ilˆmiseen. Github desktopilla yhdistet‰‰n tietokoneen tiedostot ja s‰ilytyspaikka Githubissa.*
 
-T√§m√§ kurssi vaikuttaa vaikealta. 
+https://github.com/aolkinuo/IODS-project
