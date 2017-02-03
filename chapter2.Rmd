@@ -1,5 +1,55 @@
 # Regression and model validation
 
+#Valitettavasti en saanut kuvia, muuttujien v‰lisi‰ 
+#hajontakuvia ja korrelaatioita sek‰ diagnostisia
+#kuvia, siirretty‰ Rstudiosta chapter.Rmd-tiedostoon
+#ja sit‰ kautta p‰iv‰kirjaan. Kuvien tulkinta
+#on kuitenkin mukana p‰iv‰kirjassa. Toivottavasti
+#vertaisarvioija jaksaa lukea kuvien tulkinnan vaikka
+#kuvat puuttuvat. Pahoittelen myˆs ett‰ p‰iv‰kirja
+#n‰ytt‰‰ kummalliselta.
+
+#Anna-Liina Olkinuora, 2.2.2017. T‰m‰ tiedosto on harjoitusten
+#kaksi sis‰ltˆ‰ varten.
+
+learning2014=read.table("http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-data.txt", 
+                        sep = "\t", header = TRUE)
+str(aineisto)
+dim(aineisto)
+
+#Aineistossa on 60 muuttujaa ja 183 havaintoyksikkˆ‰. L‰hes kaikki 
+#muuttujat ovat numeerisia. Sukupuoli on luokiteltu muuttuja.
+
+library(dplyr)
+
+deep_kysymykset=c("D03", "D11", "D19", "D27", "D07", 
+                  "D14", "D22", "D30","D06",  "D15", "D23", "D31")
+deep_sarakkeet=select(learning2014, one_of(deep_kysymykset))
+learning2014$deep=rowMeans(deep_sarakkeet)
+deep=learning2014$deep
+surface_questions=c("SU02","SU10","SU18","SU26", "SU05","SU13",
+                    "SU21","SU29","SU08","SU16","SU24","SU32")
+surface_columns=select(learning2014, one_of(surface_questions))
+learning2014$surf=rowMeans(surface_columns)
+surf=learning2014$surf
+strategic_questions=c("ST01","ST09","ST17","ST25","ST04",
+                      "ST12","ST20","ST28")
+strategic_columns=select(learning2014, one_of(strategic_questions))
+learning2014$stra=rowMeans(strategic_columns)
+stra=learning2014$stra
+
+pid‰_sarakkeet=c("gender","Age","Attitude", "deep", "stra", "surf",
+                 "Points")
+learning2014=select(learning2014, one_of(pid‰_sarakkeet))
+
+learning2014=filter(learning2014, Points > 0)
+str(learning2014)
+
+setwd("C:/Users/Anna-Liina/Documents/IODS-project")
+
+write.table(learning2014, file="data/learning2014.txt", sep=",")
+
+
 learning2014=read.table("data/learning2014.txt", sep = ",", header = TRUE)
 
 str(learning2014)
@@ -15,6 +65,29 @@ dim(learning2014)
 #syv‰llisiin, strategisiin ja pinnallisiin kysymyksiin.
 #gender on luokiteltu muuttuja ja sen arvo 1 kuvaa naista
 #ja arvo 2 miest‰.
+
+summary(learning2014)
+
+# gender       Age           Attitude          deep      
+# F:110   Min.   :17.00   Min.   :14.00   Min.   :1.583  
+# M: 56   1st Qu.:21.00   1st Qu.:26.00   1st Qu.:3.333  
+#         Median :22.00   Median :32.00   Median :3.667  
+#         Mean   :25.51   Mean   :31.43   Mean   :3.680  
+#         3rd Qu.:27.00   3rd Qu.:37.00   3rd Qu.:4.083  
+#         Max.   :55.00   Max.   :50.00   Max.   :4.917  
+#      stra            surf           Points     
+# Min.   :1.250   Min.   :1.583   Min.   : 7.00  
+# 1st Qu.:2.625   1st Qu.:2.417   1st Qu.:19.00  
+# Median :3.188   Median :2.833   Median :23.00  
+# Mean   :3.121   Mean   :2.787   Mean   :22.72  
+# 3rd Qu.:3.625   3rd Qu.:3.167   3rd Qu.:27.75  
+# Max.   :5.000   Max.   :4.333   Max.   :33.00  
+
+#Aineiston yhteenvedosta, joka on t‰m‰n tekstin yl‰puolella
+#n‰hd‰‰n muuttujien Age, Attitude, deep, stra, surf ja Points
+#minimit, maksimit, ensimm‰inen ja kolmas kvantiili, mediaani
+#ja keskiarvo. Muuttujasta gender n‰hd‰‰n sen kahden arvon
+#frekvenssit.
 
 library(ggplot2)
 
@@ -126,3 +199,39 @@ summary(malli2)
 #selitt‰v‰n muuttujan lis‰‰minen malliin kasvattaa
 #todenn‰kˆisesti Multiple R-squaredia ja pienent‰‰ 
 #Adjusted R-squaredia.
+
+par(mfrow = c(2,2))
+plot(malli2, which = c(1,2,5))
+
+#On piirretty kolme kuvaa, kuva jossa on mallin kaksi sovite ja #residuaalit, QQ-plot-kuva jossa on teoreettiset kvantiilit ja 
+#standardoidut residuaalit ja kuva jossa on vipuvoima ja
+#standardoidut residuaalit. 
+
+#Ensimm‰isest‰ kuvasta eli
+#kuvasta jossa on sovite x-akselilla ja residuaalit
+#y-akselilla voidaan tutkia sit‰ onko virheill‰ vakio varianssi.
+#Koska havainnot ovat jakautuneet suhteellisen tasaisesti
+#nollasuoran ymp‰rille eiv‰tk‰ muodosta jotakin muotoa
+#tai mallia, voidaan sanoa ett‰ virhetermin
+#varianssi on vakio eik‰ virheiden suuruus riipu selitt‰vist‰
+#muuttujista. Virheiden vakio varianssi on yksi oletus
+#joka usein tehd‰‰n kun estimoidaan lineaarinen regressiomalli.
+#Se n‰ytt‰isi mallin kaksi tapauksessa olevan voimassa. 
+
+#QQ-plot-kuvasta eli kuvasta jossa on teoreettiset kvantiilit
+#x-akselilla ja standardoidut residuaalit y-akselilla voidaan
+#tehd‰ p‰‰telmi‰ virheiden normaalisuudesta. Koska havainnot
+#ovat QQ-plot-kuvassa suoran p‰‰ll‰, virhetermin voidaan
+#sanoa noudattavan suurin piirtein normaalijakaumaa. Niin
+#usein halutaan olettaa ja nyt mallin kaksi tapauksessa voidaan #sanoa ett‰ oletus ett‰ virheet ovat normaalisti jakaantuneet #voidaan pit‰‰ voimassa.
+
+#Kolmannesta kuvasta, jossa on vipuvoima eli Cookin et‰isyys #x-akselilla ja standardoidut residuaalit y-akselilla voidaan #p‰‰tell‰ vipuvoiman suuruus. Vipuvoima mittaa sit‰ kuinka paljon yhdell‰ havainnolla on vaikutusta malliin. Hajontakuva jossa on #residuaalit ja vipuvoima voi auttaa tunnistamaan ne havainnot #joilla on poikkeuksellisen paljon vaikutusta malliin. Kuvasta
+#n‰hd‰‰n ett‰ havainto joka saa suurimman vipuvoiman tai Cookin
+#et‰isyyden arvon saa suunnilleen arvon 0.05. Luku on sen verran
+#pieni ett‰ vipuvoiman mallissa kaksi voidaan sanoa olevan
+#tavallista tai pient‰.
+
+#Muita lineaarisen regressiomallin oletuksia ovat virheiden
+#normaalisuuden ja vakion varianssin lis‰ksi oletukset ett‰ virheet #eiv‰t korreloi eiv‰tk‰ riipu selitt‰vist‰ muuttujista.
+
+
