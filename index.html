@@ -149,11 +149,7 @@ $(document).ready(function () {
 <li><a href="#on-kuitenkin-mukana-paivakirjassa.-toivottavasti">on kuitenkin mukana päiväkirjassa. Toivottavasti</a></li>
 <li><a href="#vertaisarvioija-jaksaa-lukea-kuvien-tulkinnan-vaikka">vertaisarvioija jaksaa lukea kuvien tulkinnan vaikka</a></li>
 <li><a href="#kuvat-puuttuvat.-pahoittelen-myos-etta-paivakirja">kuvat puuttuvat. Pahoittelen myös että päiväkirja</a></li>
-<li><a href="#nayttaa-kummalliselta.">näyttää kummalliselta.</a></li>
-<li><a href="#anna-liina-olkinuora-2.2.2017.-tama-tiedosto-on-harjoitusten">Anna-Liina Olkinuora, 2.2.2017. Tämä tiedosto on harjoitusten</a></li>
-<li><a href="#kaksi-sisaltoa-varten.">kaksi sisältöä varten.</a></li>
-<li><a href="#aineistossa-on-60-muuttujaa-ja-183-havaintoyksikkoa.-lahes-kaikki">Aineistossa on 60 muuttujaa ja 183 havaintoyksikköä. Lähes kaikki</a></li>
-<li><a href="#muuttujat-ovat-numeerisia.-sukupuoli-on-luokiteltu-muuttuja.">muuttujat ovat numeerisia. Sukupuoli on luokiteltu muuttuja.</a></li>
+<li><a href="#nayttaa-kummalliselta.-fontti-on-liian-suuri.">näyttää kummalliselta. Fontti on liian suuri.</a></li>
 <li><a href="#aineistossa-on-166-havaintoyksikkoa-ja-seitseman-muuttujaa.">Aineistossa on 166 havaintoyksikköä ja seitsemän muuttujaa.</a></li>
 <li><a href="#muuttujat-age-attitude-points-ovat-numeerisia">Muuttujat Age, Attitude, Points ovat numeerisia</a></li>
 <li><a href="#kokonaislukumuuttujia-ja-ne-kertovat-henkilon-ian-asenteen">kokonaislukumuuttujia ja ne kertovat henkilön iän, asenteen</a></li>
@@ -320,27 +316,8 @@ $(document).ready(function () {
 <div id="kuvat-puuttuvat.-pahoittelen-myos-etta-paivakirja" class="section level1">
 <h1>kuvat puuttuvat. Pahoittelen myös että päiväkirja</h1>
 </div>
-<div id="nayttaa-kummalliselta." class="section level1">
-<h1>näyttää kummalliselta.</h1>
-</div>
-<div id="anna-liina-olkinuora-2.2.2017.-tama-tiedosto-on-harjoitusten" class="section level1">
-<h1>Anna-Liina Olkinuora, 2.2.2017. Tämä tiedosto on harjoitusten</h1>
-</div>
-<div id="kaksi-sisaltoa-varten." class="section level1">
-<h1>kaksi sisältöä varten.</h1>
-<p>learning2014=read.table(“<a href="http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-data.txt" class="uri">http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-data.txt</a>”, sep = “”, header = TRUE) str(aineisto) dim(aineisto)</p>
-</div>
-<div id="aineistossa-on-60-muuttujaa-ja-183-havaintoyksikkoa.-lahes-kaikki" class="section level1">
-<h1>Aineistossa on 60 muuttujaa ja 183 havaintoyksikköä. Lähes kaikki</h1>
-</div>
-<div id="muuttujat-ovat-numeerisia.-sukupuoli-on-luokiteltu-muuttuja." class="section level1">
-<h1>muuttujat ovat numeerisia. Sukupuoli on luokiteltu muuttuja.</h1>
-<p>library(dplyr)</p>
-<p>deep_kysymykset=c(“D03”, “D11”, “D19”, “D27”, “D07”, “D14”, “D22”, “D30”,“D06”, “D15”, “D23”, “D31”) deep_sarakkeet=select(learning2014, one_of(deep_kysymykset)) learning2014<span class="math inline">\(deep=rowMeans(deep_sarakkeet) deep=learning2014\)</span>deep surface_questions=c(“SU02”,“SU10”,“SU18”,“SU26”, “SU05”,“SU13”, “SU21”,“SU29”,“SU08”,“SU16”,“SU24”,“SU32”) surface_columns=select(learning2014, one_of(surface_questions)) learning2014<span class="math inline">\(surf=rowMeans(surface_columns) surf=learning2014\)</span>surf strategic_questions=c(“ST01”,“ST09”,“ST17”,“ST25”,“ST04”, “ST12”,“ST20”,“ST28”) strategic_columns=select(learning2014, one_of(strategic_questions)) learning2014<span class="math inline">\(stra=rowMeans(strategic_columns) stra=learning2014\)</span>stra</p>
-<p>pidä_sarakkeet=c(“gender”,“Age”,“Attitude”, “deep”, “stra”, “surf”, “Points”) learning2014=select(learning2014, one_of(pidä_sarakkeet))</p>
-<p>learning2014=filter(learning2014, Points &gt; 0) str(learning2014)</p>
-<p>setwd(“C:/Users/Anna-Liina/Documents/IODS-project”)</p>
-<p>write.table(learning2014, file=“data/learning2014.txt”, sep=“,”)</p>
+<div id="nayttaa-kummalliselta.-fontti-on-liian-suuri." class="section level1">
+<h1>näyttää kummalliselta. Fontti on liian suuri.</h1>
 <p>learning2014=read.table(“data/learning2014.txt”, sep = “,”, header = TRUE)</p>
 <p>str(learning2014)</p>
 <p>dim(learning2014)</p>
