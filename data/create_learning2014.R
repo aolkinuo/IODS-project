@@ -36,6 +36,8 @@ str(learning2014)
 
 setwd("C:/Users/Anna-Liina/Documents/IODS-project")
 
-write.table(learning2014, file="data/learning2014.txt")
+write.table(learning2014, file="data/learning2014.txt", sep=",")
 
-read.table("data/learning2014.txt", sep = ",", header = TRUE)
+learning2014=read.table("data/learning2014.txt", sep = ",", header = TRUE)
+
+str(learning2014)

@@ -1,11 +1,5 @@
 # Regression and model validation
 
-*Describe the work you have done this week and summarize your learning.*
-
-- Describe your work and results clearly. 
-- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods
-- Assume the reader has no previous knowledge of your data or the more advanced methods you are using  
-
 learning2014=read.table("data/learning2014.txt", sep = ",", header = TRUE)
 
 str(learning2014)
@@ -47,8 +41,88 @@ p
 #joukossa. Suuren korrelaatiokertoimen tulkinta on esimerkiksi
 #muuttujien Attitude ja Age kohdalla se ett‰ asenteen
 #tilastotiedett‰ kohtaan ja i‰n v‰lill‰ on riippuvuutta. Jos
-#korrelaatiokerroin olisi yksi, toisen muuttujan arvon voisi laskea tarkasti, lineaarisesti toisen arvosta.
+#korrelaatiokerroin olisi yksi, toisen muuttujan arvon voisi laskea #tarkasti, lineaarisesti toisen arvosta.
+
+malli1=lm(Points~Age+Attitude+deep, data=learning2014)
+
+summary(malli1)
+
+#Kun estimoidaan pienimm‰n neliˆsumman menetelm‰ll‰ malli
+#jossa ik‰, asenne tilastotiedett‰ kohtaan ja syv‰lliset
+#kysymykset selitt‰v‰t koepisteit‰, saadaan tulokseksi
+#tulostus joka on alla.
+
+#Residuals:
+#    Min      1Q  Median      3Q     Max 
+#-17.206  -3.430   0.204   3.979  10.950 
+
+#Coefficients:
+#           Estimate Std. Error t value Pr(>|t|)    
+#(Intercept) 15.60773    3.38966   4.605 8.32e-06 ***
+#Age         -0.07716    0.05322  -1.450    0.149    
+#Attitude     0.35941    0.05696   6.310 2.56e-09 ***
+#deep        -0.60275    0.75031  -0.803    0.423    
+#---
+#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+#Residual standard error: 5.307 on 162 degrees of freedom
+#Multiple R-squared:  0.2043,	Adjusted R-squared:  0.1896 
+#F-statistic: 13.87 on 3 and 162 DF,  p-value: 4.305e-08
+
+#Ensimm‰isess‰ sarakkeessa jossa on numeroita n‰kyy selitt‰viin
+#muuttujiin liittyvien parametrien eli parametrivektorin arvot. #Niist‰ n‰hd‰‰n ett‰ kun ik‰ kasvaa yhdell‰, koepisteet laskevat #noin -0.08 verran. Kun asenne tilastotiedett‰ kohtaan nousee #yhdell‰, koepisteet kasvavat noin 0.36 verran. Kun taas
+#syv‰lliset kysymykset nousevat yhdell‰, koepisteet laskevat
+#0.6 verran. Kun ik‰, asenne ja syv‰lliset kysymykset ovat
+#nolla, koepisteet saavan vakiotermin mukaisen arvon eli noin #15.61.
+
+#T‰hdet kuvassa kertovat selitt‰vien muuttujien tilastollisesta
+#merkitsevyydest‰. T‰htien taustalla on tilastollinen testi
+#jossa testataan sit‰ voidaanko nollahypoteesi siit‰ ett‰
+#selitt‰v‰‰n muuttujaan liittyv‰ parametri on nolla hyl‰t‰. 
+#Nollahypoteesit ett‰ vakiotermin ja asennemuuttujan parametrit
+#ovat nolla voidaan hyl‰t‰ 0.1 prosentin merkitsevyystasolla eli
+#asennemuuttujan ja vakiotermin parametrit eli vaikutukset #selitett‰v‰‰n koepistemuuttujaan ovat merkitsevi‰.Nollahypoteeseja
+#siit‰ ett‰ asenne- ja syv‰lliset kysymykset-muuttujien parametrit
+#ovat nolla, ei voida hyl‰t‰. Asenne- ja syv‰lliset kysymykset
+#-muuttujien vaikutukset koepistemuuttujaan eiv‰t siis ole
+#merkitsevi‰. Poistetaan muuttujien vaikutusten huonon
+#merkitsevyyden puolesta asenne- ja syv‰lliset #kysymykset-muuttujat mallista ja estimoidaan pienimm‰n neliˆsumman #menetelm‰ll‰ malli jossa on yksi selitt‰v‰ muuttuja. Se on
+#asenne tilastotiedett‰ kohtaan.
+
+malli2=lm(Points~Attitude, data=learning2014)
+
+summary(malli2)
 
 
+#Residuals:
+#     Min       1Q   Median       3Q      Max 
+#-16.9763  -3.2119   0.4339   4.1534  10.6645 
 
+#Coefficients:
+#            Estimate Std. Error t value Pr(>|t|)    
+#(Intercept) 11.63715    1.83035   6.358 1.95e-09 ***
+#Attitude     0.35255    0.05674   6.214 4.12e-09 ***
+#---
+#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#
+#Residual standard error: 5.32 on 164 degrees of freedom
+#Multiple R-squared:  0.1906,	Adjusted R-squared:  0.1856 
+#F-statistic: 38.61 on 1 and 164 DF,  p-value: 4.119e-09
 
+#Tulostuksesta n‰hd‰‰n ett‰ asennemuuttujan parametrin arvo on
+#noin 0.35. Se tarkoittaa ett‰ kun asennemuuttuja kasvaa
+#yhdell‰, koepisteet kasvavat noin 0.35 verran. Asennemuuttujaan ja #vakiotermiin liittyv‰t parametrit ovat tilastollisesti merkitsevi‰
+#0.1 prosentin merkitsevyystasoilla.
+
+#Multiple R-squared ja Adjusted R-squared ovat mallin
+#selitysasteita. Selitysaste kertoo sen kuinka paljon malli, eli
+#selitt‰v‰t muuttujat jotka on mallinnettu k‰ytt‰m‰ll‰
+#lineaarista regressiota, selitt‰‰ selitett‰v‰n muuttujan #vaihtelusta. Yl‰puolella olevan mallin selitysaste kertoo siis sen #ett‰ asenteen tilastotiedett‰ kohtaan ja vakiotermin
+#vaihtelut selitt‰v‰t noin 19 prosenttia koepisteiden vaihtelusta. #Selitysaste kertoo tavallaan mallin suorituskyvyst‰ ja se saa #arvon nollan ja yhden v‰lill‰. 
+
+#Adjusted R-squared saa aina pienemm‰n arvon kuin Multiple
+#R-squared sill‰ siin‰ huomioidaan mallin monimutkaisuus
+#eli muuttujien m‰‰r‰. Adjusted R-squared on tarkempi mallin #suorituskyvyn mittari kuin Multiple R-squared. Uuden 
+#selitt‰v‰n muuttujan lis‰‰minen malliin kasvattaa
+#todenn‰kˆisesti Multiple R-squaredia ja pienent‰‰ 
+#Adjusted R-squaredia.
