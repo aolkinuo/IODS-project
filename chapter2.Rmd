@@ -7,7 +7,7 @@
 #on kuitenkin mukana päiväkirjassa. Toivottavasti
 #vertaisarvioija jaksaa lukea kuvien tulkinnan vaikka
 #kuvat puuttuvat. Pahoittelen myös että päiväkirja
-#näyttää kummalliselta. Fontti on liian suuri.
+#näyttää kummalliselta. 
 
 learning2014=read.table("data/learning2014.txt", sep = ",", header = TRUE)
 
