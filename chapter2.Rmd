@@ -4,7 +4,7 @@
 #hajontakuvia ja korrelaatioita sekä diagnostisia
 #kuvia, siirrettyä Rstudiosta chapter.Rmd-tiedostoon
 #ja sitä kautta päiväkirjaan. Kuvien tulkinta
-#on kuitenkin mukana päiväkirjassa. Toivottavasti
+#on kuitenkin mukana päiväkirjassa, toivottavasti
 #vertaisarvioija jaksaa lukea kuvien tulkinnan vaikka
 #kuvat puuttuvat. Pahoittelen myös että päiväkirja
 #näyttää kummalliselta. 
