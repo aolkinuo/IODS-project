@@ -1,0 +1,125 @@
+---
+title: "Logistic regression"
+author: "Anna-Liina Olkinuora"
+date: "9 helmikuuta 2017"
+output: html_document
+---
+
+```{r}
+
+alc=read.table("data/alc.txt", sep = ",", header = TRUE)
+
+head(alc)
+
+attach(alc)
+
+```
+Aineiston muuttujia ovat esimerkiksi alkoholin käyttö viikolla, 
+alkoholin käyttö viikonloppuna, terveys, poissaolot,
+alkoholin käyttö koko viikon aikana, suuri alkoholinkulutus,
+opiskeluun käytetty aika, huoltaja, perheen koko, osoite,
+ikä, sukupuoli ja koulu.
+
+Tutkin seuraavaksi suuren alkoholinkäytön joka on looginen
+muuttuja yhteyttä terveyteen, poissaoloihin, opiskeluun käytettyyn
+aikaan ja sukupuoleen. Hypoteesini on että terveys ja suuri
+alkoholinkäyttö korreloivat negatiivisesti. Arvioin myös että opiskeluun käytetyllä ajalla ja suurella alkoholinkäytöllä on
+negatiivinen korrelaatio. Arvioin myös että poissaolot ja suuri
+alkoholinkäyttö korreloivat positiivisesti. Hypoteesini on että sukupuoli vaikuttaa suureen alkoholinkäyttöön niin että miehissä
+on enemmän heitä jotka käyttävät paljon alkoholia eli heitä joille
+high_use-muuttuja saa arvon TRUE.
+
+```{r}
+
+table(health,high_use)
+table(absences,high_use)
+table(studytime,high_use)
+table(sex,high_use)
+
+barplot(health,high_use)
+barplot(absences,high_use)
+barplot(studytime,high_use)
+
+boxplot(health,high_use)
+boxplot(absences,high_use)
+boxplot(studytime,high_use)
+boxplot(sex,high_use)
+
+```
+Laatikkokuvista nähdään että hypoteesini terveyden ja suuren alkoholinkäytön ja opiskeluun käytetyn ajan ja suuren alkoholinkäytön välisistä suhteista olivat oikein. Niiden joiden alkoholinkäyttö ei ole suurta terveyden mediaani ja ala- ja yläkvantiilit ovat selvästi korkeammalla tasolla kuin heidän joiden alkoholinkäyttö on suurta vastaavat tunnusluvut. Samoin niiden joiden alkoholinkäyttö ei ole suurta opiskeluun käytetyn ajan mediaani ja ala- ja yläkvantiilit ovat korkeammalla tasolla kuin heidän joiden alkoholinkäyttö on suurta vastaavat tunnusluvut. Alkoholinkäytön kasvaminen siis vaikuttaa terveyteen ja opiskeluun käytettyyn aikaan negatiivisesti. 
+  Poissaolojen suhteen arvioni meni pieleen. Heidän joiden alkoholinkäyttö ei ole suurta poissaolojen mediaani ja ylä- ja alakvantiilit ovat korkeammalla tasolla kuin heidän joiden alkoholinkäyttö on suurta vastaavat tunnusluvut. Alkoholinkäytön kasvaminen siis vaikuttaa poissaoloihin negatiivisesti mikä oli päinvastoin kuin mitä arvioin. 
+  Ristiintaulukosta nähdään että sellaisia miehiä joiden alkoholinkäyttö on suurta on enemmän kuin sellaisia naisia joiden alkoholinkäyttö on suurta. Sellaisia miehiä joiden alkoholinkäyttö ei ole suurta on vähemmän kuin sellaisia naisia joiden alkoholinkäyttö ei ole suurta. Miehissä on siis oltava suhteellisesti suurempi osuus heitä joiden alkoholinkäyttö on suurta kuin naisissa. Hypoteesini oli sukupuolen ja suuren alkoholinkäytön suhteen osalta oikea.
+  
+```{r}
+m = glm(high_use ~ health + absences + studytime + sex, data = alc, family = "binomial")
+
+summary(m)
+
+coef(m)
+
+```
+Logistisen regressiomallin estimoinnin tulostuksesta nähdään että kun terveys kasvaa yhdellä, logaritmi suuren alkoholinkäytön todennäköisyyden ja yksi miinus suuren alkoholinkäytön todennäköisyyden osamäärästä eli log(p/(1-p)):stä kasvaa 0,04 verran. Samoin jos poissaolot kasvavat yhdellä, log(p/(1-p)) kasvaa noin 0,09 verran. Opiskeluun käytetty aika -muuttujan kerroin tulkitaan vastaavalla tavalla. 
+  Sukupuoli on luokiteltu muuttuja ja sen kertoimen tulkinta on erilainen kuin muiden muuttujien kertoimien tulkinta. R on valinnut naiset vertailuryhmäksi ja miehet ovat selittävä muuttuja. Vertailuryhmän eli naisten kerroin on mallin vakiotermi. Miesten kerroin kuvaa eroa vakiotermiin eli naisten kertoimeen. Miesten todellinen kerroin on vakiotermi-miesten kerroin eli noin -1.08-0.78=-0.3.
+  Selittäjistä tilastollisesti merkitsevä kertoimen estimaatti on poissaoloilla, opiskeluun käytetyllä ajalla, miehillä ja vakiotermillä. Se että miesten kertoimen estimaatti on tilastollisesti merkitsevä tarkoittaa että hypoteesi että vakiotermin eli vertailuryhmän kertoimen ja miesten kertoimen erotus on nolla voidaan hylätä yhden prosentin merkitsevyystasolla. Terveyden kertoimen estimaatti ei ole tilastollisesti merkitsevä eli hypoteesia siitä että terveyden kerroin on nolla ei voida hylätä yleisillä merkitsevyystasoilla. 
+
+```{r}
+library(dplyr)
+
+OR =coef(m) %>% exp
+
+CI=exp(confint(m))
+
+cbind(OR, CI)
+
+```
+Terveyden odds ratio kertoo suuren alkoholinkäytön todennäköisyyden henkilöillä joilla terveys-muuttuja muuttuu yhdellä yksiköllä ja suuren alkoholinkäytön todennäköisyyden henkilöillä jolla terveys-muuttuja ei muutu yhdellä yksiköllä osamäärän. Koska se on suurempaa kuin yksi, terveyden muutos yhdellä yksiköllä liittyy positiivisesti suureen alkoholinkäyttöön. Tämä on eri tulos kuin hypoteesissani arvioin. Myös poissaolojen odds ratio on yli yksi eli poissaolojen muutos yhdellä yksiköllä liittyy positiivisesti suureen alkoholinkäyttöön. Se on hypoteesini mukainen tulos.
+  Opiskeluun käytetyn ajan odds ratio on alle yksi mikä tarkoittaa että opiskeluun käytetyn ajan muutos yhdellä yksiköllä liittyy negatiivisesti suureen alkoholinkäyttöön. Se on arvioni mukainen tulos. Se että on mies näyttää liittyvän positiivisesti suureen alkoholinkäyttöön, sillä miesten odds ratio on yli kaksi. Se on arvioni mukaista.
+  
+```{r}
+#Lasketaan malli ilman terveysmuuttujaa jonka kertoimen estimaatti ei ollut tilastollisesti merkitsevä. 
+m = glm(high_use ~ absences + studytime + sex, data = alc, family = 
+"binomial")
+
+#Ennustetaan suuren alkoholinkäytön todennäköisyys.
+probabilities = predict(m, type = "response")
+
+#Lisätään ennustetut todennäköisyydet aineistoon.
+alc = mutate(alc, probability = probabilities)
+
+#Käytetään todennäköisyyksiä suuren alkoholinkäytön ennustamiseen,
+alc = mutate(alc, prediction = probabilities>0.5)
+
+#Ristiintaulukoidaan korkea alkoholinkäyttö-muuttuja ennusteiden muuttujasta kanssa.
+table(high_use = alc$high_use, prediction = probabilities>0.5)
+
+```
+Ristiintaulukosta nähdään että suuri alkoholinkäyttö-muuttujan arvot poikkeavat siitä logit-mallin avulla tehdyistä ennusteista vähän. 10 kertaa ennuste on suuri alkoholinkäyttö silloin kun muuttuja saa ei suurta alkoholinkäyttöä vastaavan arvon. Samoin 88 kertaa ennuste on ei suurta alkoholinkäyttöä kun muuttuja saa suurta alkoholinkäyttöä vastaavan arvon.
+
+```{r}
+
+# Haetaan paketit dplyr ja ggplot2.
+library(dplyr); library(ggplot2)
+
+# Piirretään hajontakuva korkeasta alkoholin käytöstä ja sen ennustetuista todennäköisyyksistä.
+g = ggplot(alc, aes(x = probability, y = high_use, col=prediction))
+
+# Määritellään geom pisteinä ja piirretään uusi kuva. 
+g+geom_point()
+
+#Taulukoidaan suuri alkoholinkäyttö ja ennusteet siitä. 
+table(high_use = alc$high_use, prediction = alc$prediction)%>%prop.table()%>%addmargins()
+
+# Määritellään loss function eli keskimääräinen ennustevirhe. 
+loss_func = function(class, prob) {
+  n_wrong = abs(class - prob) > 0.5
+  mean(n_wrong)
+}
+
+# Kutsutaan loss funktio jotta voidaan laskea väärien ennusteiden keskimääräinen määrä aineistossa. 
+loss_func(class = alc$high_use, prob = alc$probability)
+
+```
+Väärin luokiteltuja henkilöitä on noin 26 prosenttia kaikista henkilöistä. Ylemmästä taulukosta nähdään että ennusteen mukaan henkilöitä joilla ei ole suurta alkoholinkäyttöä on noin 91 prosenttia kaikista henkilöistä. Muuttujan arvojen mukaan henkilöitä joilla ei ole suurta alkoholinkäyttöä on noin 70 prosenttia kaikista henkilöistä. Huomataan taas että ennuste eroaa muuttujan arvoista.
+
+
+```
