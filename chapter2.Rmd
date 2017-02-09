@@ -75,24 +75,7 @@ summary(malli1)
 Kun estimoidaan pienimm‰n neliˆsumman menetelm‰ll‰ malli
 jossa ik‰, asenne tilastotiedett‰ kohtaan ja syv‰lliset
 kysymykset selitt‰v‰t koepisteit‰, saadaan tulokseksi
-tulostus joka on alla.
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--17.206  -3.430   0.204   3.979  10.950 
-
-Coefficients:
-           Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 15.60773    3.38966   4.605 8.32e-06 ***
-Age         -0.07716    0.05322  -1.450    0.149    
-Attitude     0.35941    0.05696   6.310 2.56e-09 ***
-deep        -0.60275    0.75031  -0.803    0.423    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 5.307 on 162 degrees of freedom
-Multiple R-squared:  0.2043,	Adjusted R-squared:  0.1896 
-F-statistic: 13.87 on 3 and 162 DF,  p-value: 4.305e-08
+tulostus joka on t‰m‰n tekstin yl‰puolella.
 
 Ensimm‰isess‰ sarakkeessa jossa on numeroita n‰kyy selitt‰viin
 muuttujiin liittyvien parametrien eli parametrivektorin arvot. Niist‰ n‰hd‰‰n ett‰ kun ik‰ kasvaa yhdell‰, koepisteet laskevat noin -0.08 verran. Kun asenne tilastotiedett‰ kohtaan nousee yhdell‰, koepisteet kasvavat noin 0.36 verran. Kun taas
@@ -121,21 +104,6 @@ malli2=lm(Points~Attitude, data=learning2014)
 summary(malli2)
 
 ```
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--16.9763  -3.2119   0.4339   4.1534  10.6645 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 11.63715    1.83035   6.358 1.95e-09 ***
-Attitude     0.35255    0.05674   6.214 4.12e-09 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 5.32 on 164 degrees of freedom
-Multiple R-squared:  0.1906,	Adjusted R-squared:  0.1856 
-F-statistic: 38.61 on 1 and 164 DF,  p-value: 4.119e-09
 
 Tulostuksesta n‰hd‰‰n ett‰ asennemuuttujan parametrin arvo on
 noin 0.35. Se tarkoittaa ett‰ kun asennemuuttuja kasvaa
