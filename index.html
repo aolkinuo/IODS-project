@@ -286,7 +286,7 @@ head(alc)</code></pre>
 ## 5    1    2      5        2  8 12 12     1.5    FALSE
 ## 6    1    2      5        8 14 14 14     1.5    FALSE</code></pre>
 <pre class="r"><code>attach(alc)</code></pre>
-<p>Aineiston muuttujia ovat esimerkiksi alkoholin käyttö viikolla, alkoholin käyttö viikonloppuna, terveys, poissaolot, alkoholin käyttö koko viikon aikana, suuri alkoholinkulutus, opiskeluun käytetty aika, huoltaja, perheen koko, osoite, ikä, sukupuoli ja koulu. Siinä oli vain osa muuttujista.</p>
+<p>Aineiston muuttujia ovat esimerkiksi alkoholin käyttö viikolla, alkoholin käyttö viikonloppuna, terveys, poissaolot, alkoholin käyttö koko viikon aikana, suuri alkoholinkulutus, opiskeluun käytetty aika, huoltaja, perheen koko, osoite, ikä, sukupuoli ja koulu. Siinä oli vain osa muuttujista. Loput näkyvät tulosteesta.</p>
 <p>Tutkin seuraavaksi suuren alkoholinkäytön joka on looginen muuttuja yhteyttä terveyteen, poissaoloihin, opiskeluun käytettyyn aikaan ja sukupuoleen. Hypoteesini on että terveys ja suuri alkoholinkäyttö korreloivat negatiivisesti. Arvioin myös että opiskeluun käytetyllä ajalla ja suurella alkoholinkäytöllä on negatiivinen korrelaatio. Arvioin myös että poissaolot ja suuri alkoholinkäyttö korreloivat positiivisesti. Hypoteesini on että sukupuoli vaikuttaa suureen alkoholinkäyttöön niin että miehissä on enemmän heitä jotka käyttävät paljon alkoholia eli heitä joille high_use-muuttuja saa arvon TRUE.</p>
 <pre class="r"><code>table(health,high_use)</code></pre>
 <pre><code>##       high_use

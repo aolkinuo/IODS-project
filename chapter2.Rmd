@@ -26,7 +26,6 @@ summary(learning2014)
 
 ```
 
-
 Aineiston yhteenvedosta, joka on t‰m‰n tekstin yl‰puolella
 n‰hd‰‰n muuttujien Age, Attitude, deep, stra, surf ja Points
 minimit, maksimit, ensimm‰inen ja kolmas kvantiili, mediaani

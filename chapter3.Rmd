@@ -18,7 +18,7 @@ Aineiston muuttujia ovat esimerkiksi alkoholin käyttö viikolla,
 alkoholin käyttö viikonloppuna, terveys, poissaolot,
 alkoholin käyttö koko viikon aikana, suuri alkoholinkulutus,
 opiskeluun käytetty aika, huoltaja, perheen koko, osoite,
-ikä, sukupuoli ja koulu. Siinä oli vain osa muuttujista.
+ikä, sukupuoli ja koulu. Siinä oli vain osa muuttujista. Loput näkyvät tulosteesta.
 
 Tutkin seuraavaksi suuren alkoholinkäytön joka on looginen
 muuttuja yhteyttä terveyteen, poissaoloihin, opiskeluun käytettyyn
