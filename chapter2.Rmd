@@ -26,20 +26,6 @@ summary(learning2014)
 
 ```
 
- gender       Age           Attitude          deep      
- F:110   Min.   :17.00   Min.   :14.00   Min.   :1.583  
- M: 56   1st Qu.:21.00   1st Qu.:26.00   1st Qu.:3.333  
-         Median :22.00   Median :32.00   Median :3.667  
-         Mean   :25.51   Mean   :31.43   Mean   :3.680  
-         3rd Qu.:27.00   3rd Qu.:37.00   3rd Qu.:4.083  
-         Max.   :55.00   Max.   :50.00   Max.   :4.917  
-      stra            surf           Points     
- Min.   :1.250   Min.   :1.583   Min.   : 7.00  
- 1st Qu.:2.625   1st Qu.:2.417   1st Qu.:19.00  
- Median :3.188   Median :2.833   Median :23.00  
- Mean   :3.121   Mean   :2.787   Mean   :22.72  
- 3rd Qu.:3.625   3rd Qu.:3.167   3rd Qu.:27.75  
- Max.   :5.000   Max.   :4.333   Max.   :33.00  
 
 Aineiston yhteenvedosta, joka on t‰m‰n tekstin yl‰puolella
 n‰hd‰‰n muuttujien Age, Attitude, deep, stra, surf ja Points
