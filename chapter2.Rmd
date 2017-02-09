@@ -1,13 +1,15 @@
 # Regression and model validation
 
-#Valitettavasti en saanut kuvia, muuttujien v‰lisi‰ 
-#hajontakuvia ja korrelaatioita sek‰ diagnostisia
-#kuvia, siirretty‰ Rstudiosta chapter.Rmd-tiedostoon
-#ja sit‰ kautta p‰iv‰kirjaan. Kuvien tulkinta
-#on kuitenkin mukana p‰iv‰kirjassa, toivottavasti
-#vertaisarvioija jaksaa lukea kuvien tulkinnan vaikka
-#kuvat puuttuvat. Pahoittelen myˆs ett‰ p‰iv‰kirja
-#n‰ytt‰‰ kummalliselta. Fontti on liian suuri.
+Valitettavasti en saanut kuvia, muuttujien v‰lisi‰ 
+hajontakuvia ja korrelaatioita sek‰ diagnostisia
+kuvia, siirretty‰ Rstudiosta chapter.Rmd-tiedostoon
+ja sit‰ kautta p‰iv‰kirjaan. Kuvien tulkinta
+on kuitenkin mukana p‰iv‰kirjassa, toivottavasti
+vertaisarvioija jaksaa lukea kuvien tulkinnan vaikka
+kuvat puuttuvat. Pahoittelen myˆs ett‰ p‰iv‰kirja
+n‰ytt‰‰ kummalliselta. Fontti on liian suuri.
+
+```{r}
 
 learning2014=read.table("data/learning2014.txt", sep = ",", header = TRUE)
 
@@ -15,38 +17,46 @@ str(learning2014)
 
 dim(learning2014)
 
-#Aineistossa on 166 havaintoyksikkˆ‰ ja seitsem‰n muuttujaa. 
-#Muuttujat Age, Attitude, Points ovat numeerisia 
-#kokonaislukumuuttujia ja ne kertovat henkilˆn i‰n, asenteen
-#tilastotiedett‰ kohtaan ja koepisteet. Ik‰ on laskettu
-#syntym‰vuoden avulla. Muuttujat deep, stra ja surf ovat
-#numeerisia muuttujia. Ne kertovat henkilˆn vastaukset
-#syv‰llisiin, strategisiin ja pinnallisiin kysymyksiin.
-#gender on luokiteltu muuttuja ja sen arvo 1 kuvaa naista
-#ja arvo 2 miest‰.
+```
+
+Aineistossa on 166 havaintoyksikkˆ‰ ja seitsem‰n muuttujaa. 
+Muuttujat Age, Attitude, Points ovat numeerisia 
+kokonaislukumuuttujia ja ne kertovat henkilˆn i‰n, asenteen
+tilastotiedett‰ kohtaan ja koepisteet. Ik‰ on laskettu
+syntym‰vuoden avulla. Muuttujat deep, stra ja surf ovat
+numeerisia muuttujia. Ne kertovat henkilˆn vastaukset
+syv‰llisiin, strategisiin ja pinnallisiin kysymyksiin.
+gender on luokiteltu muuttuja ja sen arvo 1 kuvaa naista
+ja arvo 2 miest‰.
+
+```{r}
 
 summary(learning2014)
 
-# gender       Age           Attitude          deep      
-# F:110   Min.   :17.00   Min.   :14.00   Min.   :1.583  
-# M: 56   1st Qu.:21.00   1st Qu.:26.00   1st Qu.:3.333  
-#         Median :22.00   Median :32.00   Median :3.667  
-#         Mean   :25.51   Mean   :31.43   Mean   :3.680  
-#         3rd Qu.:27.00   3rd Qu.:37.00   3rd Qu.:4.083  
-#         Max.   :55.00   Max.   :50.00   Max.   :4.917  
-#      stra            surf           Points     
-# Min.   :1.250   Min.   :1.583   Min.   : 7.00  
-# 1st Qu.:2.625   1st Qu.:2.417   1st Qu.:19.00  
-# Median :3.188   Median :2.833   Median :23.00  
-# Mean   :3.121   Mean   :2.787   Mean   :22.72  
-# 3rd Qu.:3.625   3rd Qu.:3.167   3rd Qu.:27.75  
-# Max.   :5.000   Max.   :4.333   Max.   :33.00  
+```
 
-#Aineiston yhteenvedosta, joka on t‰m‰n tekstin yl‰puolella
-#n‰hd‰‰n muuttujien Age, Attitude, deep, stra, surf ja Points
-#minimit, maksimit, ensimm‰inen ja kolmas kvantiili, mediaani
-#ja keskiarvo. Muuttujasta gender n‰hd‰‰n sen kahden arvon
-#frekvenssit.
+ gender       Age           Attitude          deep      
+ F:110   Min.   :17.00   Min.   :14.00   Min.   :1.583  
+ M: 56   1st Qu.:21.00   1st Qu.:26.00   1st Qu.:3.333  
+         Median :22.00   Median :32.00   Median :3.667  
+         Mean   :25.51   Mean   :31.43   Mean   :3.680  
+         3rd Qu.:27.00   3rd Qu.:37.00   3rd Qu.:4.083  
+         Max.   :55.00   Max.   :50.00   Max.   :4.917  
+      stra            surf           Points     
+ Min.   :1.250   Min.   :1.583   Min.   : 7.00  
+ 1st Qu.:2.625   1st Qu.:2.417   1st Qu.:19.00  
+ Median :3.188   Median :2.833   Median :23.00  
+ Mean   :3.121   Mean   :2.787   Mean   :22.72  
+ 3rd Qu.:3.625   3rd Qu.:3.167   3rd Qu.:27.75  
+ Max.   :5.000   Max.   :4.333   Max.   :33.00  
+
+Aineiston yhteenvedosta, joka on t‰m‰n tekstin yl‰puolella
+n‰hd‰‰n muuttujien Age, Attitude, deep, stra, surf ja Points
+minimit, maksimit, ensimm‰inen ja kolmas kvantiili, mediaani
+ja keskiarvo. Muuttujasta gender n‰hd‰‰n sen kahden arvon
+frekvenssit.
+
+```{r}
 
 library(ggplot2)
 
@@ -58,139 +68,152 @@ p=ggpairs(learning2014, mapping = aes(col = gender, alpha = 0.3), lower = list(c
 
 p
 
-#Kuvasta n‰hd‰‰n ett‰ muuttujat Attitude, deep ja stra ovat
-#jakautuneet l‰hes normaalisti naisten ja miesten joukossa. 
-#Myˆs surf on naisten osalta jakautunut l‰hes normaalisti.
-#Age on vinoutunut, skewed, oikealle ja myˆs surf on 
-#vinoutunut oikealle miesten osalta. Points-muuttujan jakauma
-#on vinoutunut vasemmalle. Korrelaatiokertoimista n‰hd‰‰n
-#ett‰ muuttujat Attitude ja Age, deep ja
-#Age, deep ja Attitude, stra ja Attitude, Points ja Attitude,
-#stra ja deep, Points ja deep korreloivat suhteellisen paljon
-#naisten joukossa. Muuttujat Attitude ja Age, deep ja Age,
-#stra ja Age, surf ja Attitude, Points ja Attitude, surf ja deep,
-#Points ja deep korreloivat suhteellisen paljon miesten
-#joukossa. Suuren korrelaatiokertoimen tulkinta on esimerkiksi
-#muuttujien Attitude ja Age kohdalla se ett‰ asenteen
-#tilastotiedett‰ kohtaan ja i‰n v‰lill‰ on riippuvuutta. Jos
-#korrelaatiokerroin olisi yksi, toisen muuttujan arvon voisi laskea #tarkasti, lineaarisesti toisen arvosta.
+```
+
+Kuvasta n‰hd‰‰n ett‰ muuttujat Attitude, deep ja stra ovat
+jakautuneet l‰hes normaalisti naisten ja miesten joukossa. 
+Myˆs surf on naisten osalta jakautunut l‰hes normaalisti.
+Age on vinoutunut, skewed, oikealle ja myˆs surf on 
+vinoutunut oikealle miesten osalta. Points-muuttujan jakauma
+on vinoutunut vasemmalle. Korrelaatiokertoimista n‰hd‰‰n
+ett‰ muuttujat Attitude ja Age, deep ja
+Age, deep ja Attitude, stra ja Attitude, Points ja Attitude,
+stra ja deep, Points ja deep korreloivat suhteellisen paljon
+naisten joukossa. Muuttujat Attitude ja Age, deep ja Age,
+stra ja Age, surf ja Attitude, Points ja Attitude, surf ja deep,
+Points ja deep korreloivat suhteellisen paljon miesten
+joukossa. Suuren korrelaatiokertoimen tulkinta on esimerkiksi
+muuttujien Attitude ja Age kohdalla se ett‰ asenteen
+tilastotiedett‰ kohtaan ja i‰n v‰lill‰ on riippuvuutta. Jos
+korrelaatiokerroin olisi yksi, toisen muuttujan arvon voisi laskea tarkasti, lineaarisesti toisen arvosta.
+
+```{r}
 
 malli1=lm(Points~Age+Attitude+deep, data=learning2014)
 
 summary(malli1)
 
-#Kun estimoidaan pienimm‰n neliˆsumman menetelm‰ll‰ malli
-#jossa ik‰, asenne tilastotiedett‰ kohtaan ja syv‰lliset
-#kysymykset selitt‰v‰t koepisteit‰, saadaan tulokseksi
-#tulostus joka on alla.
+```
 
-#Residuals:
-#    Min      1Q  Median      3Q     Max 
-#-17.206  -3.430   0.204   3.979  10.950 
+Kun estimoidaan pienimm‰n neliˆsumman menetelm‰ll‰ malli
+jossa ik‰, asenne tilastotiedett‰ kohtaan ja syv‰lliset
+kysymykset selitt‰v‰t koepisteit‰, saadaan tulokseksi
+tulostus joka on alla.
 
-#Coefficients:
-#           Estimate Std. Error t value Pr(>|t|)    
-#(Intercept) 15.60773    3.38966   4.605 8.32e-06 ***
-#Age         -0.07716    0.05322  -1.450    0.149    
-#Attitude     0.35941    0.05696   6.310 2.56e-09 ***
-#deep        -0.60275    0.75031  -0.803    0.423    
-#---
-#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-17.206  -3.430   0.204   3.979  10.950 
 
-#Residual standard error: 5.307 on 162 degrees of freedom
-#Multiple R-squared:  0.2043,	Adjusted R-squared:  0.1896 
-#F-statistic: 13.87 on 3 and 162 DF,  p-value: 4.305e-08
+Coefficients:
+           Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 15.60773    3.38966   4.605 8.32e-06 ***
+Age         -0.07716    0.05322  -1.450    0.149    
+Attitude     0.35941    0.05696   6.310 2.56e-09 ***
+deep        -0.60275    0.75031  -0.803    0.423    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-#Ensimm‰isess‰ sarakkeessa jossa on numeroita n‰kyy selitt‰viin
-#muuttujiin liittyvien parametrien eli parametrivektorin arvot. #Niist‰ n‰hd‰‰n ett‰ kun ik‰ kasvaa yhdell‰, koepisteet laskevat #noin -0.08 verran. Kun asenne tilastotiedett‰ kohtaan nousee #yhdell‰, koepisteet kasvavat noin 0.36 verran. Kun taas
-#syv‰lliset kysymykset nousevat yhdell‰, koepisteet laskevat
-#0.6 verran. Kun ik‰, asenne ja syv‰lliset kysymykset ovat
-#nolla, koepisteet saavan vakiotermin mukaisen arvon eli noin #15.61.
+Residual standard error: 5.307 on 162 degrees of freedom
+Multiple R-squared:  0.2043,	Adjusted R-squared:  0.1896 
+F-statistic: 13.87 on 3 and 162 DF,  p-value: 4.305e-08
 
-#T‰hdet kuvassa kertovat selitt‰vien muuttujien tilastollisesta
-#merkitsevyydest‰. T‰htien taustalla on tilastollinen testi
-#jossa testataan sit‰ voidaanko nollahypoteesi siit‰ ett‰
-#selitt‰v‰‰n muuttujaan liittyv‰ parametri on nolla hyl‰t‰. 
-#Nollahypoteesit ett‰ vakiotermin ja asennemuuttujan parametrit
-#ovat nolla voidaan hyl‰t‰ 0.1 prosentin merkitsevyystasolla eli
-#asennemuuttujan ja vakiotermin parametrit eli vaikutukset #selitett‰v‰‰n koepistemuuttujaan ovat merkitsevi‰.Nollahypoteeseja
-#siit‰ ett‰ asenne- ja syv‰lliset kysymykset-muuttujien parametrit
-#ovat nolla, ei voida hyl‰t‰. Asenne- ja syv‰lliset kysymykset
-#-muuttujien vaikutukset koepistemuuttujaan eiv‰t siis ole
-#merkitsevi‰. Poistetaan muuttujien vaikutusten huonon
-#merkitsevyyden puolesta asenne- ja syv‰lliset #kysymykset-muuttujat mallista ja estimoidaan pienimm‰n neliˆsumman #menetelm‰ll‰ malli jossa on yksi selitt‰v‰ muuttuja. Se on
-#asenne tilastotiedett‰ kohtaan.
+Ensimm‰isess‰ sarakkeessa jossa on numeroita n‰kyy selitt‰viin
+muuttujiin liittyvien parametrien eli parametrivektorin arvot. Niist‰ n‰hd‰‰n ett‰ kun ik‰ kasvaa yhdell‰, koepisteet laskevat noin -0.08 verran. Kun asenne tilastotiedett‰ kohtaan nousee yhdell‰, koepisteet kasvavat noin 0.36 verran. Kun taas
+syv‰lliset kysymykset nousevat yhdell‰, koepisteet laskevat
+0.6 verran. Kun ik‰, asenne ja syv‰lliset kysymykset ovat
+nolla, koepisteet saavan vakiotermin mukaisen arvon eli noin 15.61.
+
+T‰hdet kuvassa kertovat selitt‰vien muuttujien tilastollisesta
+merkitsevyydest‰. T‰htien taustalla on tilastollinen testi
+jossa testataan sit‰ voidaanko nollahypoteesi siit‰ ett‰
+selitt‰v‰‰n muuttujaan liittyv‰ parametri on nolla hyl‰t‰. 
+Nollahypoteesit ett‰ vakiotermin ja asennemuuttujan parametrit
+ovat nolla voidaan hyl‰t‰ 0.1 prosentin merkitsevyystasolla eli
+asennemuuttujan ja vakiotermin parametrit eli vaikutukset selitett‰v‰‰n koepistemuuttujaan ovat merkitsevi‰.Nollahypoteeseja
+siit‰ ett‰ asenne- ja syv‰lliset kysymykset-muuttujien parametrit
+ovat nolla, ei voida hyl‰t‰. Asenne- ja syv‰lliset kysymykset
+-muuttujien vaikutukset koepistemuuttujaan eiv‰t siis ole
+merkitsevi‰. Poistetaan muuttujien vaikutusten huonon
+merkitsevyyden puolesta asenne- ja syv‰lliset #kysymykset-muuttujat mallista ja estimoidaan pienimm‰n neliˆsumman #menetelm‰ll‰ malli jossa on yksi selitt‰v‰ muuttuja. Se on
+asenne tilastotiedett‰ kohtaan.
+
+```{r}
 
 malli2=lm(Points~Attitude, data=learning2014)
 
 summary(malli2)
 
+```
 
-#Residuals:
-#     Min       1Q   Median       3Q      Max 
-#-16.9763  -3.2119   0.4339   4.1534  10.6645 
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.9763  -3.2119   0.4339   4.1534  10.6645 
 
-#Coefficients:
-#            Estimate Std. Error t value Pr(>|t|)    
-#(Intercept) 11.63715    1.83035   6.358 1.95e-09 ***
-#Attitude     0.35255    0.05674   6.214 4.12e-09 ***
-#---
-#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#
-#Residual standard error: 5.32 on 164 degrees of freedom
-#Multiple R-squared:  0.1906,	Adjusted R-squared:  0.1856 
-#F-statistic: 38.61 on 1 and 164 DF,  p-value: 4.119e-09
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 11.63715    1.83035   6.358 1.95e-09 ***
+Attitude     0.35255    0.05674   6.214 4.12e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-#Tulostuksesta n‰hd‰‰n ett‰ asennemuuttujan parametrin arvo on
-#noin 0.35. Se tarkoittaa ett‰ kun asennemuuttuja kasvaa
-#yhdell‰, koepisteet kasvavat noin 0.35 verran. Asennemuuttujaan ja #vakiotermiin liittyv‰t parametrit ovat tilastollisesti merkitsevi‰
-#0.1 prosentin merkitsevyystasoilla.
+Residual standard error: 5.32 on 164 degrees of freedom
+Multiple R-squared:  0.1906,	Adjusted R-squared:  0.1856 
+F-statistic: 38.61 on 1 and 164 DF,  p-value: 4.119e-09
 
-#Multiple R-squared ja Adjusted R-squared ovat mallin
-#selitysasteita. Selitysaste kertoo sen kuinka paljon malli, eli
-#selitt‰v‰t muuttujat jotka on mallinnettu k‰ytt‰m‰ll‰
-#lineaarista regressiota, selitt‰‰ selitett‰v‰n muuttujan #vaihtelusta. Yl‰puolella olevan mallin selitysaste kertoo siis sen #ett‰ asenteen tilastotiedett‰ kohtaan ja vakiotermin
-#vaihtelut selitt‰v‰t noin 19 prosenttia koepisteiden vaihtelusta. #Selitysaste kertoo tavallaan mallin suorituskyvyst‰ ja se saa #arvon nollan ja yhden v‰lill‰. 
+Tulostuksesta n‰hd‰‰n ett‰ asennemuuttujan parametrin arvo on
+noin 0.35. Se tarkoittaa ett‰ kun asennemuuttuja kasvaa
+yhdell‰, koepisteet kasvavat noin 0.35 verran. Asennemuuttujaan ja vakiotermiin liittyv‰t parametrit ovat tilastollisesti merkitsevi‰
+0.1 prosentin merkitsevyystasoilla.
 
-#Adjusted R-squared saa aina pienemm‰n arvon kuin Multiple
-#R-squared sill‰ siin‰ huomioidaan mallin monimutkaisuus
-#eli muuttujien m‰‰r‰. Adjusted R-squared on tarkempi mallin #suorituskyvyn mittari kuin Multiple R-squared. Uuden 
-#selitt‰v‰n muuttujan lis‰‰minen malliin kasvattaa
-#todenn‰kˆisesti Multiple R-squaredia ja pienent‰‰ 
-#Adjusted R-squaredia.
+Multiple R-squared ja Adjusted R-squared ovat mallin
+selitysasteita. Selitysaste kertoo sen kuinka paljon malli, eli
+selitt‰v‰t muuttujat jotka on mallinnettu k‰ytt‰m‰ll‰
+lineaarista regressiota, selitt‰‰ selitett‰v‰n muuttujan vaihtelusta. Yl‰puolella olevan mallin selitysaste kertoo siis sen ett‰ asenteen tilastotiedett‰ kohtaan ja vakiotermin
+vaihtelut selitt‰v‰t noin 19 prosenttia koepisteiden vaihtelusta. Selitysaste kertoo tavallaan mallin suorituskyvyst‰ ja se saa arvon nollan ja yhden v‰lill‰. 
+
+Adjusted R-squared saa aina pienemm‰n arvon kuin Multiple
+R-squared sill‰ siin‰ huomioidaan mallin monimutkaisuus
+eli muuttujien m‰‰r‰. Adjusted R-squared on tarkempi mallin suorituskyvyn mittari kuin Multiple R-squared. Uuden 
+selitt‰v‰n muuttujan lis‰‰minen malliin kasvattaa
+todenn‰kˆisesti Multiple R-squaredia ja pienent‰‰ 
+Adjusted R-squaredia.
+
+```{r}
 
 par(mfrow = c(2,2))
 plot(malli2, which = c(1,2,5))
 
-#On piirretty kolme kuvaa, kuva jossa on mallin kaksi sovite ja #residuaalit, QQ-plot-kuva jossa on teoreettiset kvantiilit ja 
-#standardoidut residuaalit ja kuva jossa on vipuvoima ja
-#standardoidut residuaalit. 
+```
 
-#Ensimm‰isest‰ kuvasta eli
-#kuvasta jossa on sovite x-akselilla ja residuaalit
-#y-akselilla voidaan tutkia sit‰ onko virheill‰ vakio varianssi.
-#Koska havainnot ovat jakautuneet suhteellisen tasaisesti
-#nollasuoran ymp‰rille eiv‰tk‰ muodosta jotakin muotoa
-#tai mallia, voidaan sanoa ett‰ virhetermin
-#varianssi on vakio eik‰ virheiden suuruus riipu selitt‰vist‰
-#muuttujista. Virheiden vakio varianssi on yksi oletus
-#joka usein tehd‰‰n kun estimoidaan lineaarinen regressiomalli.
-#Se n‰ytt‰isi mallin kaksi tapauksessa olevan voimassa. 
+On piirretty kolme kuvaa, kuva jossa on mallin kaksi sovite ja residuaalit, QQ-plot-kuva jossa on teoreettiset kvantiilit ja 
+standardoidut residuaalit ja kuva jossa on vipuvoima ja
+standardoidut residuaalit. 
 
-#QQ-plot-kuvasta eli kuvasta jossa on teoreettiset kvantiilit
-#x-akselilla ja standardoidut residuaalit y-akselilla voidaan
-#tehd‰ p‰‰telmi‰ virheiden normaalisuudesta. Koska havainnot
-#ovat QQ-plot-kuvassa suoran p‰‰ll‰, virhetermin voidaan
-#sanoa noudattavan suurin piirtein normaalijakaumaa. Niin
-#usein halutaan olettaa ja nyt mallin kaksi tapauksessa voidaan #sanoa ett‰ oletus ett‰ virheet ovat normaalisti jakaantuneet #voidaan pit‰‰ voimassa.
+Ensimm‰isest‰ kuvasta eli
+kuvasta jossa on sovite x-akselilla ja residuaalit
+y-akselilla voidaan tutkia sit‰ onko virheill‰ vakio varianssi.
+Koska havainnot ovat jakautuneet suhteellisen tasaisesti
+nollasuoran ymp‰rille eiv‰tk‰ muodosta jotakin muotoa
+tai mallia, voidaan sanoa ett‰ virhetermin
+varianssi on vakio eik‰ virheiden suuruus riipu selitt‰vist‰
+muuttujista. Virheiden vakio varianssi on yksi oletus
+joka usein tehd‰‰n kun estimoidaan lineaarinen regressiomalli.
+Se n‰ytt‰isi mallin kaksi tapauksessa olevan voimassa. 
 
-#Kolmannesta kuvasta, jossa on vipuvoima eli Cookin et‰isyys #x-akselilla ja standardoidut residuaalit y-akselilla voidaan #p‰‰tell‰ vipuvoiman suuruus. Vipuvoima mittaa sit‰ kuinka paljon yhdell‰ havainnolla on vaikutusta malliin. Hajontakuva jossa on #residuaalit ja vipuvoima voi auttaa tunnistamaan ne havainnot #joilla on poikkeuksellisen paljon vaikutusta malliin. Kuvasta
-#n‰hd‰‰n ett‰ havainto joka saa suurimman vipuvoiman tai Cookin
-#et‰isyyden arvon saa suunnilleen arvon 0.05. Luku on sen verran
-#pieni ett‰ vipuvoiman mallissa kaksi voidaan sanoa olevan
-#tavallista tai pient‰.
+QQ-plot-kuvasta eli kuvasta jossa on teoreettiset kvantiilit
+x-akselilla ja standardoidut residuaalit y-akselilla voidaan
+tehd‰ p‰‰telmi‰ virheiden normaalisuudesta. Koska havainnot
+ovat QQ-plot-kuvassa suoran p‰‰ll‰, virhetermin voidaan
+sanoa noudattavan suurin piirtein normaalijakaumaa. Niin
+usein halutaan olettaa ja nyt mallin kaksi tapauksessa voidaan sanoa ett‰ oletus ett‰ virheet ovat normaalisti jakaantuneet voidaan pit‰‰ voimassa.
 
-#Muita lineaarisen regressiomallin oletuksia ovat virheiden
-#normaalisuuden ja vakion varianssin lis‰ksi oletukset ett‰ virheet #eiv‰t korreloi eiv‰tk‰ riipu selitt‰vist‰ muuttujista.
+Kolmannesta kuvasta, jossa on vipuvoima eli Cookin et‰isyys x-akselilla ja standardoidut residuaalit y-akselilla voidaan p‰‰tell‰ vipuvoiman suuruus. Vipuvoima mittaa sit‰ kuinka paljon yhdell‰ havainnolla on vaikutusta malliin. Hajontakuva jossa on residuaalit ja vipuvoima voi auttaa tunnistamaan ne havainnot joilla on poikkeuksellisen paljon vaikutusta malliin. Kuvasta
+n‰hd‰‰n ett‰ havainto joka saa suurimman vipuvoiman tai Cookin
+et‰isyyden arvon saa suunnilleen arvon 0.05. Luku on sen verran
+pieni ett‰ vipuvoiman mallissa kaksi voidaan sanoa olevan
+tavallista tai pient‰.
+
+Muita lineaarisen regressiomallin oletuksia ovat virheiden
+normaalisuuden ja vakion varianssin lis‰ksi oletukset ett‰ virheet eiv‰t korreloi eiv‰tk‰ riipu selitt‰vist‰ muuttujista.
 
 
