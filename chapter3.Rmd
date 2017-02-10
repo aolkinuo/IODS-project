@@ -4,6 +4,7 @@ author: "Anna-Liina Olkinuora"
 date: "9 helmikuuta 2017"
 output: html_document
 ---
+En saanut vietyä tätä tiedostoa Github-päiväkirjaan. Julkaisin sen R:n palvelun kautta, toivottavasti tehtäväni voidaan hyväksyä.
 
 ```{r}
 
