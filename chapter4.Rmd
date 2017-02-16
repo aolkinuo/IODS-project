@@ -76,7 +76,7 @@ p=ggpairs(Boston, mapping = aes(alpha = 0.3), lower = list(combo = wrap("facethi
 
 p
 
-# calculate the correlation matrix and round it
+# calculate the correlation matrix
 cor_matrix<-cor(Boston) 
 
 # print the correlation matrix
