@@ -44,7 +44,7 @@ barplot(studytime,high_use)
 boxplot(health,high_use)
 boxplot(absences,high_use)
 boxplot(studytime,high_use)
-boxplot(sex,high_use)
+
 
 ```
 Laatikkokuvista nähdään että hypoteesini terveyden ja suuren alkoholinkäytön ja opiskeluun käytetyn ajan ja suuren alkoholinkäytön välisistä suhteista olivat oikein. Niiden joiden alkoholinkäyttö ei ole suurta terveyden mediaani ja ala- ja yläkvantiilit ovat selvästi korkeammalla tasolla kuin heidän joiden alkoholinkäyttö on suurta vastaavat tunnusluvut. Samoin niiden joiden alkoholinkäyttö ei ole suurta opiskeluun käytetyn ajan mediaani ja ala- ja yläkvantiilit ovat korkeammalla tasolla kuin heidän joiden alkoholinkäyttö on suurta vastaavat tunnusluvut. Alkoholinkäytön kasvaminen siis vaikuttaa terveyteen ja opiskeluun käytettyyn aikaan negatiivisesti. 
