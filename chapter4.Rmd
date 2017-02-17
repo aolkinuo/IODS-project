@@ -5,6 +5,8 @@ date: "16 helmikuuta 2017"
 output: html_document
 ---
 
+#Clustering and classification
+
 ```{r}
 # access the MASS package
 library(MASS)
@@ -226,6 +228,7 @@ km <-kmeans(dist_eu, centers = 2)
 pairs(boston_scaled, col = km$cluster)
 
 ```
+
 We reloaded the Boston dataset and standardized the dataset. We calculated the distances between the observations using the euclidian and manhattan distance matrixes. We ran k-means algorithm on the dataset and visualized the clusters with pairs-function where clusters are separated with colors. 
   Then we investigated what is the optimal number of clusters is with total within sum of squares. We drew a picture where the number of clusters in on the x-axis and quantity of total within sum of squares on the y-axis. From the picture we saw that total sum of squares gets its highest value at one. We thought one is too small number of clusters and chose two for the number of clusters. We ran the k-means algorithm again and chose two as the number of centers. We visualized the clusters again with pairs-function.
   
