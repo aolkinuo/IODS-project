@@ -228,3 +228,24 @@ pairs(boston_scaled, col = km$cluster)
 ```
 We reloaded the Boston dataset and standardized the dataset. We calculated the distances between the observations using the euclidian and manhattan distance matrixes. We ran k-means algorithm on the dataset and visualized the clusters with pairs-function where clusters are separated with colors. 
   Then we investigated what is the optimal number of clusters is with total within sum of squares. We drew a picture where the number of clusters in on the x-axis and quantity of total within sum of squares on the y-axis. From the picture we saw that total sum of squares gets its highest value at one. We thought one is too small number of clusters and chose two for the number of clusters. We ran the k-means algorithm again and chose two as the number of centers. We visualized the clusters again with pairs-function.
+  
+#Super-bonus-exercise
+  
+```{r}
+model_predictors <- dplyr::select(train, -crime)
+
+# check the dimensions
+dim(model_predictors)
+dim(lda.fit$scaling)
+
+# matrix multiplication
+matrix_product <- as.matrix(model_predictors) %*% lda.fit$scaling
+matrix_product <- as.data.frame(matrix_product)
+
+library(plotly)
+
+plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type= 'scatter3d', mode='markers')
+
+plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type= 'scatter3d', mode='markers', color=train$crime)
+```
+We created a matrix product, which is a projection of the data points. We created a 3D plot of the columns of the matrix product. We added argument color as a argument in the plot_ly() function and set the color to be the crime classes of the train set. Hence we got two plots. In the second plot, crime classes low, medium low, medium high and high are separated with colors. Otherwise two plots are similar.
