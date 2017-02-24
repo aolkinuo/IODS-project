@@ -1,0 +1,127 @@
+---
+title: "Dimensionality reduction techniques"
+author: "Anna-Liina Olkinuora"
+date: "24 helmikuuta 2017"
+output: html_document
+---
+
+#Dimensionality reduction techniques
+
+```{r}
+human=read.table("data/human.txt", sep = ",", header= TRUE)
+
+str(human)
+dim(human)
+
+```
+Data includes 155 observations and 8 variables. Variables are ratio of Female and Male populations with secondary education in each country, ratio of labour force participation of females and males in each country, life expectancy, expected yaears of schooling, gross national income per capita, maternal mortality ratio, adolescent birth rate and female and male shares of parliamentary seats. Most of the variables are numerical. Only income per capita is factor variable.
+
+From the picture where are the distributions and the correlations of the variables we see that most variables have non-normal distributions. Only the distribution of expected years of schooling looks normal.
+
+From the correlation picture we see that the largest correlations are between life expectancy and expected years of schooling, maternal mortality ratio and adolescent birth rate and maternal mortality ratio and life expectancy.
+
+```{r}
+summary(human)
+
+# Access GGally
+library(dplyr)
+library(GGally)
+library(corrplot)
+
+# remove the GNI variable
+human_ <- select(human, -GNI)
+
+# visualize the 'human_' variables
+ggpairs(human_)
+
+# compute the correlation matrix and visualize it with corrplot
+cor(human_)%>%corrplot()
+
+```
+```{r}
+# perform principal component analysis (with the SVD method)
+pca_human <- prcomp(human_)
+
+# create and print out a summary of pca_human
+s <- summary(pca_human)
+s
+
+# rounded percentages of variance captured by each PC
+pca_pr <- round(100*s$importance[2,], digits = 1) 
+
+# print out the percentages of variance
+pca_pr
+
+# create object pc_lab to be used as axis labels
+pc_lab <- paste0(names(pca_pr), " (", pca_pr, "%)")
+
+# draw a biplot
+biplot(pca_human, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = pc_lab[1], ylab = pc_lab[2], sub="Burundi, Sierra Leone and Central African rebublic stand out from others")
+
+
+```
+```{r}
+# standardize the variables
+human_std <- scale(human_)
+
+# perform principal component analysis (with the SVD method)
+pca_human_std <- prcomp(human_std)
+
+# create and print out a summary of pca_human
+s <- summary(pca_human_std)
+s
+
+# rounded percentages of variance captured by each PC
+pca_pr_std <- round(100*s$importance[2,], digits = 1) 
+
+# print out the percentages of variance
+pca_pr_std
+
+# create object pc_lab to be used as axis labels
+pc_lab_std <- paste0(names(pca_pr_std), " (", pca_pr_std, "%)")
+
+# draw a biplot
+biplot(pca_human_std, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = pc_lab_std[1], ylab = pc_lab_std[2], sub="LaboFM and Parli contribute to the second principal component")
+
+```
+From the biplot we see that ratio of labour force participation of females and males correlates a lot with female and male shares of parliamentary seats as the angle between the arrows repserenting them is small. Ratio of labour force participation and shares of parliamentary seats contribute to the second principal component as the arrows representing them are pointing at the same direction as y-axis. The lenght of the arrows describes the stardard deviation of the variables or features.
+  The biplot based of the scaled data looks quite different from the biplot of non-scale data. In the previous Rwuanda stands out from other countries and in the latter Burundi, Sierra Leone and Central African republic stand out.
+
+Tea data contains 300 observations and 36 variables. All other variables are factor variables except age that is numerical integer variable. From the barplot picture we see for example that it is most common to use teabags, drink tee alone and not drink it during lunch.
+```{r}
+library(FactoMineR)
+
+data("tea")
+
+str(tea)
+dim(tea)
+
+# column names to keep in the dataset
+keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+
+# select the 'keep_columns' to create a new dataset
+tea_time <- select(tea, one_of(keep_columns))
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# visualize the dataset
+gather(tea_time) %>% ggplot(aes(value))+ geom_bar() + facet_wrap("key", scales = "free") + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
+
+
+```
+From the bottom of the output of multiple correspondence analysis we can see the correlations between the varibles and the dimensions. We can see for example that the correlations between variable how and dimension one, variable where and dimension one, variable how and dimension two and variable where and dimension two are quite high. 
+
+From the multiple correspondence analysis factor map we see that alone, no sugar and not lunch are similar variable categories as they are close to each other. Unpackaged, tea shop and other are different from the other variable categories as they are far from other variable categories. We also see that lemon and lunch are more similar than lemon and unpackaged.
+```{r}
+# multiple correspondence analysis
+mca <- MCA(tea_time, graph = FALSE)
+
+# summary of the model
+summary(mca)
+
+# visualize MCA
+plot(mca, invisible=c("ind"), habillage = "quali")
+
+```
